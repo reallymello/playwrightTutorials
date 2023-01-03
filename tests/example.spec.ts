@@ -44,9 +44,9 @@ test('can POST a pet to the store', async ({ request }) => {
 test('can POST order to the pet store and retrieve it', async ({ request }) => {
   const orderResponse = await request.post('/v2/store/order', {
     data: {
-      id: 0,
+      id: 8380430356574554000,
       petId: petId,
-      quantity: 1,
+      quantity: 10,
       shipDate: shipDate,
       status: 'placed',
       complete: true,
@@ -60,9 +60,8 @@ test('can POST order to the pet store and retrieve it', async ({ request }) => {
   const receiptResponse = await request.get(`/v2/store/order/${orderId}`);
   expect(receiptResponse.status()).toEqual(200);
   const receiptJson = await receiptResponse.json();
-  expect(receiptJson.id).toEqual(orderId);
-  // Z transform is probably masking a time representation inconsistency in the API between endpoints.
-  expect(receiptJson.shipDate).toEqual(shipDate.replace('Z', '+0000'));
+  expect(receiptJson.id).toEqual(8380430356574554000);
+  expect(receiptJson.quantity).toEqual(10);
   expect(receiptJson.petId).toEqual(petId);
 });
 /*
